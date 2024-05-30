@@ -29,12 +29,9 @@ def add_to_index(site_name: str) -> None:
 
 
 def main():
-    # input_site = input()
-    for i in range(10):
-        new_site = "website_" + str(i)
-        create_site(new_site)
-        add_to_index(new_site)
-        print("website number " + str(i) + "created")
+    new_site = input("Enter name of new site: ")
+    create_site(new_site)
+    add_to_index(new_site)
 
 
 if __name__ == "__main__":
