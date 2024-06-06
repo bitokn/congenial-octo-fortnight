@@ -8,7 +8,7 @@ def create_site(site_name: str) -> None:
         site.write("<head>\n")
         site.write(f"<title>{site_name}</title>\n")
         site.write("</head>\n")
-        site.write(f"<body><p>welcome to {site_name}</p></body>\n")
+        site.write(f"<body>\n<p>welcome to {site_name}</p>\n</body>\n")
         site.write("</html>")
 
 
@@ -16,7 +16,7 @@ def add_to_index(site_name: str) -> None:
     with open("index.html", "r") as f:
         data = f.read()
     some_index_you_want_to_insert_at = data.index("<body>") + len("<body>")
-    some_text_to_insert = f'<a href="{site_name}.html">{site_name}</a>\n'
+    some_text_to_insert = f'\n<a href="{site_name}.html">{site_name}</a><br/>'
 
     new_data = (
         data[:some_index_you_want_to_insert_at]
