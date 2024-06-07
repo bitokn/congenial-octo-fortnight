@@ -24,14 +24,15 @@ with open(arcCard_file_path, newline="") as arcCard_export:
     print(train_rides)
 
     for ride in train_rides:
-        grandate = f"{ride[0]} {ride[1]}"
+        if ride[6] == "ETS LRT":
+            grandate = f"{ride[0]} {ride[1]}"
 
-        if ride[3] == "Pass Use On Entry":
-            start_time = datetime.strptime(grandate, "%b-%d-%Y %I:%M %p")
-            start_times.insert(0, start_time)
-        elif ride[3] == "Pass Use On Exit":
-            end_time = datetime.strptime(grandate, "%b-%d-%Y %I:%M %p")
-            end_times.insert(0, end_time)
+            if ride[3] == "Pass Use On Entry":
+                start_time = datetime.strptime(grandate, "%b-%d-%Y %I:%M %p")
+                start_times.insert(0, start_time)
+            elif ride[3] == "Pass Use On Exit":
+                end_time = datetime.strptime(grandate, "%b-%d-%Y %I:%M %p")
+                end_times.insert(0, end_time)
 
 
 for i, ride in enumerate(start_times):
