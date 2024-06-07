@@ -39,14 +39,13 @@ def new_func(solve_times, start_time, end_time):
     solvesinride = []
     for solve in solve_times:
         if solve > start_time and solve < end_time:
-            solvesinride.append(f"{solve_times[solve]}")
+            solvesinride.append(solve_times[solve])
     return solvesinride
 
 
 def createdict(solve_times, start_times, end_times):
-    ride_dict = {"happy": "feet", "jappy": "jeet"}
-
-    # for i in range(len(start_times))
+    # ride_dict = {"happy": "feet", "jappy": "jeet"}
+    ride_dict = {}
 
     for i in range(len(start_times)):
         key = (start_times[i], end_times[i])
@@ -58,6 +57,37 @@ def createdict(solve_times, start_times, end_times):
     return ride_dict
 
 
+def time_to_milliseconds(time_str):
+    """Convert a time string 'M:SS.ss' to total milliseconds."""
+    m, s = time_str.split(":")
+    s, ms = s.split(".")
+    total_milliseconds = (int(m) * 60 * 1000) + (int(s) * 1000) + (int(ms) * 10)
+    return total_milliseconds
+
+
+def milliseconds_to_time(milliseconds):
+    """Convert total milliseconds to a time string 'M:SS.ss'."""
+    m = milliseconds // (60 * 1000)
+    milliseconds %= 60 * 1000
+    s = milliseconds // 1000
+    ms = (milliseconds % 1000) // 10
+    return f"{m}:{s:02}.{ms:02}"
+
+
+def mean_time(times):
+    """Calculate the mean of a list of times in 'M:SS.ss' format."""
+    if not times:
+        return None  # or return an appropriate message
+    total_milliseconds = [time_to_milliseconds(t) for t in times]
+    mean_milliseconds = sum(total_milliseconds) // len(total_milliseconds)
+    return milliseconds_to_time(mean_milliseconds)
+
+
+# Example usage:
+times = ["1:20.30", "2:30.45", "0:45.15"]
+print(mean_time(times))  # Output should be in "M:SS.ss" format
+
+
 def main() -> None:
     solve_times = get_solve_times("solving-on-train/csTimerExport_20240607_134110.csv")
 
@@ -67,7 +97,9 @@ def main() -> None:
     )
     d = createdict(solve_times, start_times, end_times)
     for i in d:
-        print(f"entered: {i[0]}, exited: {i[1]}. Solves:\n{d[i]}")
+        print(
+            f"entered: {i[0]}, exited: {i[1]}. Solves:\n{d[i]} mo3: {mean_time(d[i])}"
+        )
 
     # for i in range(len(start_times)):
     #     print(f"entered: {start_times[i]}, exited: {end_times[i]}. Solves:")
