@@ -32,7 +32,7 @@ def get_startend_times(arcCard_file_path):
     return start_times, end_times
 
 
-def new_func(solve_times, start_time, end_time):
+def create_ride_solves_list(solve_times, start_time, end_time):
     solvesinride = []
     for solve in solve_times:
         if solve > start_time and solve < end_time:
@@ -46,7 +46,7 @@ def createdict(solve_times, start_times, end_times):
         key = (start_times[i], end_times[i])
         start_time = start_times[i]
         end_time = end_times[i]
-        value = new_func(solve_times, start_time, end_time)
+        value = create_ride_solves_list(solve_times, start_time, end_time)
         ride_dict[key] = value
     return ride_dict
 
