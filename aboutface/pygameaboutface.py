@@ -5,10 +5,10 @@ COLORS = {"blue": "🟦", "red": "🟥", "green": "🟩", "yellow": "🟨", "pur
 
 
 class FaceGrid:
-    def __init__(self, size=4):
-        self.x = size
-        self.y = size
-        self.grid = [[0 for _ in range(size)] for _ in range(size)]
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.grid = [[0 for _ in range(self.x)] for _ in range(self.y)]
 
     def draw_grid(self):
         print("drawing the grid")
@@ -30,17 +30,17 @@ class FaceGrid:
     def check_rows(self):
         # check rows
         # isolate per row
-        def check_row(row: list):
-            for i in range(len(row) - 1):
-                if row[i] == row[i + 1]:
+        def check_row(i: list):
+            for j in range(len(self.grid[i]) - 1):
+                if self.grid[i][j] == self.grid[i][j + 1]:
                     continue
                 else:
                     return False
             return True
 
         row_matching_dict = {}
-        for i, row in enumerate(self.grid):
-            row_matching = check_row(row)
+        for i in range(len(self.grid)):
+            row_matching = check_row(i)
             row_matching_dict[i] = row_matching
         return row_matching_dict
 
@@ -65,7 +65,7 @@ class FaceGrid:
 
 
 def main():
-    grid = FaceGrid(5)
+    grid = FaceGrid(6, 8)
     grid.populate_grid()
     grid.draw_grid()
 
