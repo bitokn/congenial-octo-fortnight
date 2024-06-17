@@ -5,15 +5,10 @@ COLORS = {"blue": "🟦", "red": "🟥", "green": "🟩", "yellow": "🟨", "pur
 
 
 class FaceGrid:
-    def __init__(self):
-        self.x = 4
-        self.y = 4
-        self.grid = [
-            ["", "", "", ""],
-            ["", "", "", ""],
-            ["", "", "", ""],
-            ["", "", "", ""],
-        ]
+    def __init__(self, size=4):
+        self.x = size
+        self.y = size
+        self.grid = [[0 for _ in range(size)] for _ in range(size)]
 
     def draw_grid(self):
         print("drawing the grid")
@@ -66,33 +61,38 @@ class FaceGrid:
         return col_matching_dict
 
     def check_rowsandcols(self):
-        pass
+        return (self.check_rows(), self.check_cols())
 
 
 def main():
-    grid = FaceGrid()
+    grid = FaceGrid(5)
     grid.populate_grid()
     grid.draw_grid()
 
-    # grid.populate_grid()
-    # grid.draw_grid()
-    # print(grid.check_rows())
+    print(grid.check_rows())
+    print(grid.check_cols())
 
     # done = False
     # while not done:
     #     grid.populate_grid()
     #     grid.draw_grid()
-    #     print(grid.check_rows())
-    #     done = grid.check_rows()
+    #     d = grid.check_rows()
+    #     print(d)
+    #     if True in d.values():
+    #         done = True
 
-    # done2 = False
-    # while not done2:
-    #     grid.populate_grid()
-    #     #grid.draw_grid()
-    #     print(grid.check_cols())
-    #     done2 = grid.check_cols()
-    print(grid.check_rows())
-    print(grid.check_cols())
+    done2 = False
+    truedict = {0: True, 1: False, 2: False, 3: True}
+    while not done2:
+        grid.populate_grid()
+        grid.draw_grid()
+        row_dict = grid.check_rows()
+        col_dict = grid.check_cols()
+
+        print(row_dict, col_dict)
+
+        if True in row_dict.values() or True in col_dict.values():
+            done2 = True
 
 
 main()
