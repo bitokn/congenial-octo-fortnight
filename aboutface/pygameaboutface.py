@@ -38,7 +38,7 @@ class FaceGrid:
                     return False
             return True
 
-        def check_row(i: list):
+        def check_row(i):
             _tuple = []
             for k in range(self.x - 3):
                 _tuple.append(check_row_segment(k))
@@ -46,24 +46,28 @@ class FaceGrid:
 
         row_matching_dict = {}
         for i in range(len(self.grid)):
-            row_matching = check_row(i)
-            row_matching_dict[i] = row_matching
+            row_matching_dict[i] = check_row(i)
         return row_matching_dict
 
     def check_cols(self):
 
-        def check_col(j):
-            for i in range(len(self.grid) - 1):
+        def check_col_segment(k):
+            for i in range(k, k + 3):
                 if self.grid[i][j] == self.grid[i + 1][j]:
                     continue
                 else:
                     return False
             return True
 
+        def check_col(j):
+            _tuple = []
+            for k in range(self.y - 3):
+                _tuple.append(check_col_segment(k))
+            return _tuple
+
         col_matching_dict = {}
         for j in range(len(self.grid[0])):
-            col_matching = check_col(j)
-            col_matching_dict[j] = col_matching
+            col_matching_dict[j] = check_col(j)
         return col_matching_dict
 
     def check_rowsandcols(self):
@@ -71,7 +75,7 @@ class FaceGrid:
 
 
 def main():
-    grid = FaceGrid(6, 5)
+    grid = FaceGrid(5, 5)
     grid.populate_grid()
 
     grid.draw_grid()
@@ -86,7 +90,7 @@ def main():
     #         done = True
 
     for i in range(4):
-        grid.set_grid(i + 1, 1, "red")
+        grid.set_grid(1, i + 1, "red")
 
     grid.draw_grid()
 
