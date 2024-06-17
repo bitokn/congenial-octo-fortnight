@@ -30,13 +30,19 @@ class FaceGrid:
     def check_rows(self):
         # check rows
         # isolate per row
-        def check_row(i: list):
-            for j in range(len(self.grid[i]) - 1):
+        def check_row_segment(k):
+            for j in range(k, k + 3):
                 if self.grid[i][j] == self.grid[i][j + 1]:
                     continue
                 else:
                     return False
             return True
+
+        def check_row(i: list):
+            _tuple = []
+            for k in range(self.x - 3):
+                _tuple.append(check_row_segment(k))
+            return _tuple
 
         row_matching_dict = {}
         for i in range(len(self.grid)):
@@ -65,12 +71,10 @@ class FaceGrid:
 
 
 def main():
-    grid = FaceGrid(6, 8)
+    grid = FaceGrid(6, 5)
     grid.populate_grid()
-    grid.draw_grid()
 
-    print(grid.check_rows())
-    print(grid.check_cols())
+    grid.draw_grid()
 
     # done = False
     # while not done:
@@ -81,18 +85,25 @@ def main():
     #     if True in d.values():
     #         done = True
 
+    for i in range(4):
+        grid.set_grid(i + 1, 1, "red")
+
+    grid.draw_grid()
+
+    print(grid.check_rows())
+    print(grid.check_cols())
+
     done2 = False
-    truedict = {0: True, 1: False, 2: False, 3: True}
-    while not done2:
-        grid.populate_grid()
-        grid.draw_grid()
-        row_dict = grid.check_rows()
-        col_dict = grid.check_cols()
+    # while not done2:
+    #     grid.populate_grid()
+    #     grid.draw_grid()
+    #     row_dict = grid.check_rows()
+    #     col_dict = grid.check_cols()
 
-        print(row_dict, col_dict)
+    #     print(row_dict, col_dict)
 
-        if True in row_dict.values() or True in col_dict.values():
-            done2 = True
+    #     if [False, True] in row_dict.values() or True in col_dict.values():
+    #         done2 = True
 
 
 main()
