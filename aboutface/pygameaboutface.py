@@ -1,7 +1,14 @@
 # 4x4 grid
 import random
 
-COLORS = {"blue": "🟦", "red": "🟥", "green": "🟩", "yellow": "🟨", "purple": "🟪"}
+COLORS = {
+    "blue": "🟦",
+    "red": "🟥",
+    "green": "🟩",
+    "yellow": "🟨",
+    "purple": "🟪",
+    "white": "⬜️",
+}
 
 
 class FaceGrid:
@@ -20,7 +27,9 @@ class FaceGrid:
     def populate_grid(self):
         for row_num, row in enumerate(self.grid):
             for col_num, col in enumerate(row):
-                random_key = random.choice(list(COLORS.keys()))
+                random_key = random.choice(
+                    list(filter(lambda k: k != "white", COLORS.keys()))
+                )
                 self.grid[row_num][col_num] = COLORS[random_key]
 
     def set_grid(self, new_x, new_y, new_color):
@@ -70,6 +79,19 @@ class FaceGrid:
     def check_rowsandcols(self):
         return (self.check_rows(), self.check_cols())
 
+    def clear_bar(self):
+        for i_index, i in enumerate(list(self.check_rows().values())):
+            for j_index, j in enumerate(i):
+                if j:
+                    for k in range(4):
+                        self.set_grid(k + j_index, i_index, "white")
+
+        for i_index, i in enumerate(list(self.check_cols().values())):
+            for j_index, j in enumerate(i):
+                if j:
+                    for k in range(4):
+                        self.set_grid(i_index, k + j_index, "white")
+
 
 def main():
     grid = FaceGrid(5, 5)
@@ -85,11 +107,14 @@ def main():
         for i in list(row_dict.values()):
             for j in i:
                 if j:
-                    done = True
-        for i in list(col_dict.values()):
-            for j in i:
-                if j:
-                    done = True
+                    # done = True
+                    for i in list(col_dict.values()):
+                        for j in i:
+                            if j:
+                                done = True
+
+    grid.clear_bar()
+    grid.draw_grid()
 
 
 main()
