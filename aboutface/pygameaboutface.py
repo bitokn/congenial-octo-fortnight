@@ -96,7 +96,7 @@ class FaceGrid:
 def main():
     grid = FaceGrid(5, 5)
     grid.populate_grid()
-    grid.draw_grid()
+    # grid.draw_grid()
     done = False
     while not done:
         grid.populate_grid()
@@ -107,7 +107,7 @@ def main():
         for i in list(row_dict.values()):
             for j in i:
                 if j:
-                    # done = True
+                    done = True
                     for i in list(col_dict.values()):
                         for j in i:
                             if j:
