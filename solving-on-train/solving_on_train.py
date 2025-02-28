@@ -51,9 +51,9 @@ def createdict(solve_times, start_times, end_times):
 
 
 def main() -> None:
-    csTimer_data = "solving-on-train/csTimerExport_20240809_155224.csv"
+    csTimer_data = "./csTimerExport_20250228_134121.csv"
     solve_times = get_solve_times(csTimer_data)
-    arc_data = "solving-on-train/transaction_export638588375219006553.csv"
+    arc_data = "./transaction_export638763721549361172.csv"
     start_times, end_times = get_startend_times(arc_data)
     d = createdict(solve_times, start_times, end_times)
     for i in d:
